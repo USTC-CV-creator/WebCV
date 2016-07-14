@@ -13,19 +13,19 @@
 
 1.  html
 
--   直接打印简历页面
+    -   直接打印简历页面
 
--   在线简历托管?
+    -   在线简历托管?
 
--   简历放到home.ustc.edu.cn
+    -   简历放到home.ustc.edu.cn
 
--   简历放到GitHub
+    -   简历放到GitHub
 
-1.  pdf
+2.  pdf
 
--   浏览器生成pdf
+    -   浏览器生成pdf
 
--   下载pdf
+    -   下载pdf
 
 其他辅助功能
 ------------

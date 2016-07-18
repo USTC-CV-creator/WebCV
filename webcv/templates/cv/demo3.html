@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <!-- force IE to use standard mode -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- 主页地址，必须有这个东西，不然 PhantomJS 找不到页面里的资源 -->
     <base href="{{ url_for('index', _external=True) }}">
     <title>Title</title>
 
@@ -220,9 +221,12 @@
         }
     </style>
 
+    <!-- 控制A4页面，这个 CSS 要放在最后 -->
     <link rel="stylesheet" href="{{ url_for('static', filename='webcv/a4.css') }}">
 
+    <!-- 点击添加按钮时，新加进去的东西 -->
     <script type="text/html" id="entry_template">
+        <!-- 这坨东西放在 script 标签里只是起一个保存的目的，注意上面的 type 属性 -->
         <div class="cv-date-table ed" contenteditable="true">
             <table>
                 <tr>
@@ -257,6 +261,7 @@
 
             // setup ckeditor
 
+            // 所有可以编辑的东西都要在 class 里加上 ed
             $( '.ed' ).prop( 'contenteditable', true );
             CKEDITOR.inlineAll();
 
@@ -289,6 +294,7 @@
                 }
             };
 
+            // add or remove item
             var show_action_bar = function ( el ) {
                 var bar = el.find( '> .action-bar' );
                 if ( bar.length > 0 ) {
@@ -442,6 +448,7 @@
                         } );
             };
 
+            // 顶端标题（姓名_学校_应聘X岗位_手机号）
             var title_editor = $( '#title_editor' );
             fix_contenteditable_change_event( title_editor );
             title_editor
@@ -454,6 +461,7 @@
                     } );
             $( 'title' ).text( title_editor.text() );
 
+            // "Get PDF" button
             $( '#get_pdf' ).click( function () {
                 var $btn = $( this );
                 $btn.empty().append( $( '<i class="fa fa-spinner fa-spin"></i>' ) ).append( ' Waiting.' );
@@ -474,7 +482,7 @@
                         // failed
                         $btn.text( 'Failed.' );
                     } );
-                }, 500 );
+                }, 200 );
             } );
         } );
     </script>
@@ -487,6 +495,7 @@
     <button id="get_pdf" class="ui-button ui-corner-all">Get PDF</button>
 </div>
 
+<!-- 拖动项目时显示的“轨道” -->
 <div id="sect-track"></div>
 <div id="sect-inner-track"></div>
 

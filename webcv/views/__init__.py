@@ -3,7 +3,7 @@ from flask import (
     make_response, send_file, after_this_request
 )
 import urllib.parse
-import html
+import re
 import tempfile
 import os
 import subprocess
@@ -108,8 +108,13 @@ def cv_get_pdf(task_id, filename):
 
 @app.route('/cv/<name>')
 def cv_page(name):
-    # TODO: check input
-    return render_template('cv/{}.html'.format(name))
+    if not re.match('^[a-zA-Z0-9_-]+$', name):
+        abort(404)
+    from jinja2.exceptions import TemplateNotFound
+    try:
+        return render_template('cv/{}.html'.format(name))
+    except TemplateNotFound:
+        abort(404)
 
 
 @app.route('/')

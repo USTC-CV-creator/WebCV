@@ -11,14 +11,10 @@ if ( system.args.length !== 3 ) {
     output = system.args[ 2 ];
     page.viewportSize = { width: 600, height: 600 };
     page.paperSize = { format: 'A4', orientation: 'portrait', margin: 0 };
-    // page.settings.dpi = 720;
-    if ( system.args.length > 4 ) {
-        page.zoomFactor = system.args[ 4 ];
-    }
     page.open( address, function ( status ) {
         if ( status !== 'success' ) {
             console.log( 'Unable to load the address!' );
-            phantom.exit( 1 );
+            phantom.exit( 2 );
         } else {
             // adjust timeout here
             window.setTimeout( function () {

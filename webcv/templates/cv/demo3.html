@@ -4,12 +4,14 @@
     <meta charset="UTF-8">
     <!-- force IE to use standard mode -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <base href="{{ url_for('index', _external=True) }}">
     {# TODO: update title #}
     <title>Title</title>
 
     <script src="{{ url_for('static', filename='ckeditor/ckeditor.js') }}"></script>
     <script src="{{ url_for('static', filename='jquery/jquery-1.12.4.min.js') }}"></script>
     <script src="{{ url_for('static', filename='jquery/jquery.balloon.es5.js') }}"></script>
+    <script src="{{ url_for('static', filename='jquery/jquery.api_post.js') }}"></script>
     <script src="{{ url_for('static', filename='jquery-ui/jquery-ui.min.js') }}"></script>
     <script src="{{ url_for('static', filename='underscore-1.8.3.js') }}"></script>
 
@@ -407,8 +409,37 @@
                 hide_drag_handler( sect_wrap );
             } );
 
+            var poll_for_pdf = function ( task_id ) {
+                $.getJSON( {{ url_for('cv_task_status', task_id='')|tojson }} +task_id, function ( data ) {
+                    var status = data.status;
+                    if ( status === 'fail' ) {
+                        // TODO:
+                    } else if ( status === 'success' ) {
+                        window.location.assign( '/cv/get_pdf/' + task_id + '/' + $( '#title' ).text() + '.pdf' );
+                    } else if ( status === 'wait' ) {
+                        window.setTimeout( function () {
+                            poll_for_pdf( task_id );
+                        }, 1000 );
+                    }
+                } );
+            };
+
             // setup other function
             $( '#title' ).prop( 'contenteditable', true );
+            $( '#get_pdf' ).click( function () {
+                close_ckeditor();
+                // delay html extraction to ensure move handlers and popup are focused out.
+                window.setTimeout( function () {
+                    var html = document.documentElement.outerHTML;
+                    $.api_post( {{ url_for('cv_request_pdf')|tojson }}, { html: html }, function ( data ) {
+                        var task_id = data.task_id;
+                        poll_for_pdf( task_id );
+                    }, function () {
+                        // failed
+                        // TODO:
+                    } );
+                }, 500 );
+            } );
         } );
 
     </script>
@@ -418,7 +449,7 @@
 
 <div id="top">
     <h2 id="title">姓名_学校_应聘X岗位_手机号</h2>
-    <button class="ui-button ui-corner-all">Get PDF</button>
+    <button id="get_pdf" class="ui-button ui-corner-all">Get PDF</button>
 </div>
 
 <div id="sect-track"></div>

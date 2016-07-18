@@ -5,7 +5,6 @@
     <!-- force IE to use standard mode -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <base href="{{ url_for('index', _external=True) }}">
-    {# TODO: update title #}
     <title>Title</title>
 
     <script src="{{ url_for('static', filename='ckeditor/ckeditor.js') }}"></script>
@@ -416,7 +415,8 @@
                     if ( status === 'fail' ) {
                         // TODO:
                     } else if ( status === 'success' ) {
-                        window.location.assign( '/cv/get_pdf/' + task_id + '/' + $( '#title' ).text() + '.pdf' );
+                        // XXX: this url is not auto-generated
+                        window.location.assign( '/cv/get_pdf/' + task_id + '/' + $( '#title_editor' ).text() + '.pdf' );
                         done();
                     } else if ( status === 'wait' ) {
                         window.setTimeout( function () {
@@ -428,11 +428,33 @@
 
             // setup other function
 
-            $( '#title' )
+            var fix_contenteditable_change_event = function ( obj ) {
+                $( obj )
+                // When you click on item, record into data("initialText") content of this item.
+                        .focus( function () {
+                            $( this ).data( "initialText", $( this ).html() );
+                        } )
+                        // When you leave an item...
+                        .blur( function () {
+                            // ...if content is different...
+                            if ( $( this ).data( "initialText" ) !== $( this ).html() ) {
+                                // fire change() event
+                                $( this ).change();
+                            }
+                        } );
+            };
+
+            var title_editor = $( '#title_editor' );
+            fix_contenteditable_change_event( title_editor );
+            title_editor
                     .prop( 'contenteditable', true )
                     .focusin( function () {
                         $( this ).selectText();
+                    } )
+                    .change( function () {
+                        $( 'title' ).text( $( this ).text() );
                     } );
+            $( 'title' ).text( title_editor.text() );
 
             $( '#get_pdf' ).click( function () {
                 var $btn = $( this );
@@ -460,7 +482,7 @@
 <body>
 
 <div id="top">
-    <h2 id="title">姓名_学校_应聘X岗位_手机号</h2>
+    <h2 id="title_editor">姓名_学校_应聘X岗位_手机号</h2>
     <button id="get_pdf" class="ui-button ui-corner-all">Get PDF</button>
 </div>
 

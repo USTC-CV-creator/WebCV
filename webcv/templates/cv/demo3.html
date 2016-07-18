@@ -413,11 +413,11 @@
                 $.getJSON( {{ url_for('cv_task_status', task_id='')|tojson }} +task_id, function ( data ) {
                     var status = data.status;
                     if ( status === 'fail' ) {
-                        // TODO:
+                        done( status );
                     } else if ( status === 'success' ) {
                         // XXX: this url is not auto-generated
                         window.location.assign( '/cv/get_pdf/' + task_id + '/' + $( '#title_editor' ).text() + '.pdf' );
-                        done();
+                        done( status );
                     } else if ( status === 'wait' ) {
                         window.setTimeout( function () {
                             poll_for_pdf( task_id, done );
@@ -465,8 +465,12 @@
                     var html = document.documentElement.outerHTML;
                     $.api_post( {{ url_for('cv_request_pdf')|tojson }}, { html: html }, function ( data ) {
                         var task_id = data.task_id;
-                        poll_for_pdf( task_id, function () {
-                            $btn.text( 'Get PDF' );
+                        poll_for_pdf( task_id, function ( status ) {
+                            if ( status === 'success' ) {
+                                $btn.text( 'Get PDF' );
+                            } else {
+                                $btn.text( 'Failed.' );
+                            }
                         } );
                     }, function () {
                         // failed

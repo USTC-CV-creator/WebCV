@@ -410,16 +410,17 @@
                 hide_drag_handler( sect_wrap );
             } );
 
-            var poll_for_pdf = function ( task_id ) {
+            var poll_for_pdf = function ( task_id, done ) {
                 $.getJSON( {{ url_for('cv_task_status', task_id='')|tojson }} +task_id, function ( data ) {
                     var status = data.status;
                     if ( status === 'fail' ) {
                         // TODO:
                     } else if ( status === 'success' ) {
                         window.location.assign( '/cv/get_pdf/' + task_id + '/' + $( '#title' ).text() + '.pdf' );
+                        done();
                     } else if ( status === 'wait' ) {
                         window.setTimeout( function () {
-                            poll_for_pdf( task_id );
+                            poll_for_pdf( task_id, done );
                         }, 1000 );
                     }
                 } );
@@ -432,17 +433,22 @@
                     .focusin( function () {
                         $( this ).selectText();
                     } );
+
             $( '#get_pdf' ).click( function () {
+                var $btn = $( this );
+                $btn.empty().append( $( '<i class="fa fa-spinner fa-spin"></i>' ) ).append( ' Waiting.' );
                 close_ckeditor();
                 // delay html extraction to ensure move handlers and popup are focused out.
                 window.setTimeout( function () {
                     var html = document.documentElement.outerHTML;
                     $.api_post( {{ url_for('cv_request_pdf')|tojson }}, { html: html }, function ( data ) {
                         var task_id = data.task_id;
-                        poll_for_pdf( task_id );
+                        poll_for_pdf( task_id, function () {
+                            $btn.text( 'Get PDF' );
+                        } );
                     }, function () {
                         // failed
-                        // TODO:
+                        $btn.text( 'Failed.' );
                     } );
                 }, 500 );
             } );

@@ -2,8 +2,8 @@ import json
 import os
 from collections import OrderedDict
 
+from celery import Celery
 from flask import Flask
-from flask_debugtoolbar import DebugToolbarExtension
 
 
 class Dict(OrderedDict):
@@ -72,10 +72,6 @@ config.load(DEFALUT_CONFIG_FILE)
 config.file = CONFIG_FILE
 config.load()
 config.apply()
-
-DebugToolbarExtension(app)
-
-from celery import Celery
 
 
 def make_celery(app):

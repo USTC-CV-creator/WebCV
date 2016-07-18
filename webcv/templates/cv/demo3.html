@@ -257,14 +257,6 @@
 
             // setup ckeditor
 
-            // prevent ckeditor from adding <p>
-            CKEDITOR.config.enterMode = CKEDITOR.ENTER_BR;
-            // prevent ckeditor from removing elements.
-            CKEDITOR.config.allowedContent = true;
-            // disable table borders
-            CKEDITOR.config.startupShowBorders = false;
-            CKEDITOR.config.resize_enabled = true;
-
             $( '.ed' ).prop( 'contenteditable', true );
             CKEDITOR.inlineAll();
 

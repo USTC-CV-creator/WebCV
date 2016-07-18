@@ -12,6 +12,7 @@
     <script src="{{ url_for('static', filename='jquery/jquery-1.12.4.min.js') }}"></script>
     <script src="{{ url_for('static', filename='jquery/jquery.balloon.es5.js') }}"></script>
     <script src="{{ url_for('static', filename='jquery/jquery.api_post.js') }}"></script>
+    <script src="{{ url_for('static', filename='jquery/jquery.selecttext.js') }}"></script>
     <script src="{{ url_for('static', filename='jquery-ui/jquery-ui.min.js') }}"></script>
     <script src="{{ url_for('static', filename='underscore-1.8.3.js') }}"></script>
 
@@ -425,7 +426,12 @@
             };
 
             // setup other function
-            $( '#title' ).prop( 'contenteditable', true );
+
+            $( '#title' )
+                    .prop( 'contenteditable', true )
+                    .focusin( function () {
+                        $( this ).selectText();
+                    } );
             $( '#get_pdf' ).click( function () {
                 close_ckeditor();
                 // delay html extraction to ensure move handlers and popup are focused out.

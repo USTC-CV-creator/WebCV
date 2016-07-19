@@ -110,6 +110,9 @@ def cv_get_pdf(task_id, filename):
 def cv_page(name):
     if not re.match('^[a-zA-Z0-9_-]+$', name):
         abort(404)
+    if name.startswith('base_'):
+        abort(404)
+
     from jinja2.exceptions import TemplateNotFound
     try:
         return render_template('cv/{}.html'.format(name))

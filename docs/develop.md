@@ -51,11 +51,16 @@
         第三方的库，如果只有一个文件，直接放在 [webcv/static](../webcv/static) 就行。
         
         项目里自己写的 js、css 等放到 [webcv/static/webcv](../webcv/static/webcv) 里。
-        
+
+-   [misc](../misc)
+
+    杂物
+
 ## 开发环境
 
 1.  IDE
-    安装 PyCharm，导入设置 [misc/pycharm_settings_tz.jar](../misc/pycharm_settings_tz.jar)
+    安装 PyCharm，点菜单 File -> Import Settings
+    导入配置文件 [misc/pycharm_settings_tz.jar](../misc/pycharm_settings_tz.jar)
 
 2.  Python
 
@@ -77,7 +82,15 @@
 
 ## Deploy & Configurations
 
-TBA
+配置文件有两个：
+
+[config_default.json](../config_default.json) 是默认配置文件。
+
+`config.json` 是要修改的配置文件，里面的东西会覆盖 `config_default.json`。
+
+修改时改 `config.json`，不要改 `config_default.json`。`config.json` 不要放到 git 里，。
+
+如何部署待调研。
 
 ## 学习资料
 

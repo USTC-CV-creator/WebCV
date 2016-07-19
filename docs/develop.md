@@ -27,11 +27,11 @@
         
     -   [webcv/templates](../webcv/templates)
     
-        html 模板
+        html 模板，参考 jinja2 文档。
         
         -   [webcv/templates/cv](../webcv/templates/cv)
         
-            简历模板
+            简历模板，`base_*.html`，是模板的模板。
         
     -   [webcv/views](../webcv/views)
     
@@ -51,3 +51,7 @@
         第三方的库，如果只有一个文件，直接放在 [webcv/static](../webcv/static) 就行。
         
         项目里自己写的 js、css 等放到 [webcv/static/webcv](../webcv/static/webcv) 里。
+
+## Deploy & Configurations
+
+TBA

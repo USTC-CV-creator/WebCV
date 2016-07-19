@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    {# TODO: 提示简历内容高度超出页面 #}
     <meta charset="UTF-8">
     <!-- force IE to use standard mode -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -81,8 +82,6 @@
             border: 1px solid black;
             text-align: center;
         }
-
-        /* TODO: */
 
         .cv-head {
             font-weight: bold;
@@ -400,11 +399,6 @@
                     if ( status === 'fail' ) {
                         done( status );
                     } else if ( status === 'success' ) {
-                        var filename = $( '#title_editor' ).text();
-                        // sanitize filename
-                        filename = window.encodeURIComponent( filename_sanitize( filename ) );
-                        // XXX: this url is not auto-generated
-                        window.location.assign( '/cv/get_pdf/' + task_id + '/' + filename + '.pdf' );
                         done( status );
                     } else if ( status === 'wait' ) {
                         window.setTimeout( function () {
@@ -458,6 +452,12 @@
                         poll_for_pdf( task_id, function ( status ) {
                             if ( status === 'success' ) {
                                 $btn.text( 'Get PDF' );
+                                // TODO: thank u for using our service
+                                var filename = $( '#title_editor' ).text();
+                                // sanitize filename
+                                filename = window.encodeURIComponent( filename_sanitize( filename ) );
+                                // XXX: hard coded URL
+                                window.location.assign( '/cv/get_pdf/' + task_id + '/' + filename + '.pdf' );
                             } else {
                                 $btn.text( 'Failed.' );
                             }

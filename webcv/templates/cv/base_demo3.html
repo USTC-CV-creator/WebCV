@@ -83,74 +83,6 @@
             text-align: center;
         }
 
-        .cv-head {
-            font-weight: bold;
-            border-bottom: 1pt solid black;
-            height: 1.3cm;
-        }
-
-        .cv-head .name {
-            font-size: 1cm;
-            max-width: 50%;
-        }
-
-        .cv-head .position {
-            float: right;
-            /*position: relative;*/
-            margin-top: 0.8cm;
-        }
-
-        .cv-contact table {
-            width: 100%;
-        }
-
-        .cv-contact td {
-            width: 33.33%;
-            text-align: right;
-        }
-
-        .spacing5mm {
-            min-height: 5mm;
-            width: 100%;
-        }
-
-        .cv-sect-head {
-            font-size: 0.5cm;
-            width: 100%;
-            border-bottom: 1pt solid black;
-        }
-
-        .cv-sect-head div {
-            background-color: black;
-            color: white;
-            padding-left: 2mm;
-            width: 3cm;
-        }
-
-        .cv-date-table table {
-            width: 100%;
-        }
-
-        .cv-date-table .date {
-            width: 3cm;
-            vertical-align: top;
-        }
-
-        .cv-date-table .content .title {
-            font-size: 0.45cm;
-            color: darkgreen;
-        }
-
-        .cv-date-table .content .subtitle {
-            float: right;
-            color: black;
-        }
-
-        .cv-date-table .content .text li {
-            margin-top: 1mm;
-            margin-bottom: 1mm;
-        }
-
         .drag-handler {
             position: absolute;
             left: -0.5cm;
@@ -223,12 +155,16 @@
         }
     </style>
 
+    {# 简历 CSS #}
+    {% block cv_style %}{% endblock %}
+
     <!-- 控制A4页面，这个 CSS 要放在最后 -->
     <link rel="stylesheet" href="{{ url_for('static', filename='webcv/a4.css') }}">
 
     <!-- 点击添加按钮时，新加进去的东西 -->
     <!-- 这坨东西放在 script 标签里只是起一个保存的目的，注意 type 属性 -->
     <script type="text/html" id="inner_sect_template">
+        {# 点击添加按钮时，新加进去的东西 #}
         {% block inner_sect_template %}{% endblock %}
     </script>
 
@@ -495,7 +431,7 @@
 <div id="sect-track"></div>
 <div id="sect-inner-track"></div>
 
-<!-- 简历内容 -->
+{# 简历内容 #}
 {% block resume %}{% endblock %}
 
 </body>

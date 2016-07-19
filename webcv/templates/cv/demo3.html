@@ -1,5 +1,77 @@
 {% extends 'cv/base_demo3.html' %}
 
+{% block cv_style %}
+    <style>
+        .cv-head {
+            font-weight: bold;
+            border-bottom: 1pt solid black;
+            height: 1.3cm;
+        }
+
+        .cv-head .name {
+            font-size: 1cm;
+            max-width: 50%;
+        }
+
+        .cv-head .position {
+            float: right;
+            /*position: relative;*/
+            margin-top: 0.8cm;
+        }
+
+        .cv-contact table {
+            width: 100%;
+        }
+
+        .cv-contact td {
+            width: 33.33%;
+            text-align: right;
+        }
+
+        .spacing5mm {
+            min-height: 5mm;
+            width: 100%;
+        }
+
+        .cv-sect-head {
+            font-size: 0.5cm;
+            width: 100%;
+            border-bottom: 1pt solid black;
+        }
+
+        .cv-sect-head div {
+            background-color: black;
+            color: white;
+            padding-left: 2mm;
+            width: 3cm;
+        }
+
+        .cv-date-table table {
+            width: 100%;
+        }
+
+        .cv-date-table .date {
+            width: 3cm;
+            vertical-align: top;
+        }
+
+        .cv-date-table .content .title {
+            font-size: 0.45cm;
+            color: darkgreen;
+        }
+
+        .cv-date-table .content .subtitle {
+            float: right;
+            color: black;
+        }
+
+        .cv-date-table .content .text li {
+            margin-top: 1mm;
+            margin-bottom: 1mm;
+        }
+    </style>
+{% endblock %}
+
 {% block inner_sect_template %}
     <div class="cv-date-table ed" contenteditable="true">
         <table>

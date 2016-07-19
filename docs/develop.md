@@ -55,3 +55,73 @@
 ## Deploy & Configurations
 
 TBA
+
+## 学习资料
+
+### 后端
+
+-   [flask](http://flask.pocoo.org/) Web 框架
+
+    -   书
+    
+        - Instant Flask Web Development
+    
+        - Building Web Applications with Flask
+        
+        - Flask Framework Cookbook
+
+-   [celery](http://www.celeryproject.org/) task queue
+
+    <https://www.fullstackpython.com/task-queues.html>
+    
+    <http://flask.pocoo.org/docs/0.11/patterns/celery/>
+    
+    <https://github.com/thrisp/flask-celery-example>
+    
+-   [SQLAlchemy](http://www.sqlalchemy.org/) 数据库工具
+
+    <http://pythoncentral.io/series/python-sqlalchemy-database-tutorial/>
+
+-   [Virtualenv](https://virtualenv.pypa.io/)
+
+    <https://www.dabapps.com/blog/introduction-to-pip-and-virtualenv-python/>
+
+### 前端
+
+参考文档 <https://developer.mozilla.org/en-US/>
+
+-   HTML/CSS
+
+    <http://learn.shayhowe.com/html-css/>
+
+    <http://learnlayout.com/>
+
+-   JavaScript
+
+    -   书
+    
+        [JavaScript: The Good Parts](http://bdcampbell.net/javascript/book/javascript_the_good_parts.pdf)
+        
+        DOM Scripting: Web Design with JavaScript and the Document Object Model
+        
+    -   概念
+    
+        -   AJAX
+        
+        -   DOM
+
+-   框架、函数库
+
+    -   Bootstrap: 界面
+    
+    -   jQuery: 提供 DOM、AJAX api
+    
+    -   jQuery UI: 界面
+    
+    -   underscore: 常用函数库
+    
+    -   Font Awesome： 图标
+
+### 其他
+
+Web 开发的方方面面 <https://www.fullstackpython.com/>

@@ -61,8 +61,8 @@ body {
         border: none;
     }
 
-    /* 隐藏简历以外的东西 */
-    #top, #bottom {
+    /* 隐藏简历以外的东西，简历以外的东西都要加上这个 class */
+    .no-print {
         display: none;
     }
 }

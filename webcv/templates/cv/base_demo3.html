@@ -235,7 +235,7 @@
                 if ( bar.length > 0 ) {
                     bar.show();
                 } else {
-                    bar = $( '<div class="action-bar" contenteditable="false">' );
+                    bar = $( '<div class="action-bar no-print" contenteditable="false">' );
                     var add_up_btn = $( '<div class="action-add-up" ' +
                             'title="Insert new item above">' +
                             '<i class="fa fa-plus"></i></div>' );
@@ -434,14 +434,14 @@
 
 <body class="SimSun Arial">
 
-<div id="top">
+<div id="top" class="no-print">
     <h2 id="title_editor">姓名_学校_应聘X岗位_手机号</h2>
     <button id="get_pdf" class="ui-button ui-corner-all" autocomplete="off">Get PDF</button>
 </div>
 
 <!-- 拖动项目时显示的“轨道” -->
-<div id="sect-track"></div>
-<div id="sect-inner-track"></div>
+<div id="sect-track" class="no-print"></div>
+<div id="sect-inner-track" class="no-print"></div>
 
 {# 简历内容 #}
 {% block resume %}{% endblock %}

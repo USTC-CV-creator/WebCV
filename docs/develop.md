@@ -51,6 +51,29 @@
         第三方的库，如果只有一个文件，直接放在 [webcv/static](../webcv/static) 就行。
         
         项目里自己写的 js、css 等放到 [webcv/static/webcv](../webcv/static/webcv) 里。
+        
+## 开发环境
+
+1.  IDE
+    安装 PyCharm，导入设置 [misc/pycharm_settings_tz.jar](../misc/pycharm_settings_tz.jar)
+
+2.  Python
+
+    使用 Python3.4，先创建一个 Virtualenv，在 Virtualenv 里安装依赖的包：
+    
+    `pip install -r requirements.txt`
+    
+3.  安装 redis，并运行。
+
+4.  启动 celery worker：
+
+    `celery -A webcv.celery worker`
+
+5.  运行
+
+    `python3 run_dev_server.py`
+    
+    打开 http://127.0.0.1:5000/
 
 ## Deploy & Configurations
 

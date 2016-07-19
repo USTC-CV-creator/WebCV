@@ -403,14 +403,12 @@
             var poll_for_pdf = function ( task_id, done ) {
                 $.getJSON( {{ url_for('cv_task_status', task_id='')|tojson }} +task_id, function ( data ) {
                     var status = data.status;
-                    if ( status === 'fail' ) {
-                        done( status );
-                    } else if ( status === 'success' ) {
-                        done( status );
-                    } else if ( status === 'wait' ) {
+                    if ( status === 'wait' ) {
                         window.setTimeout( function () {
                             poll_for_pdf( task_id, done );
                         }, 1000 );
+                    } else {
+                        done( status );
                     }
                 } );
             };
@@ -450,6 +448,9 @@
             $( '#get_pdf' ).click( function () {
                 var $btn = $( this );
                 $btn.empty().append( $( '<i class="fa fa-spinner fa-spin"></i>' ) ).append( ' Waiting.' );
+                // disable button
+                $btn.prop( 'disabled', true );
+
                 close_ckeditor();
                 // delay html extraction to ensure move handlers and popup are focused out.
                 window.setTimeout( function () {
@@ -466,12 +467,16 @@
                                 // XXX: hard coded URL
                                 window.location.assign( '/cv/get_pdf/' + task_id + '/' + filename + '.pdf' );
                             } else {
-                                $btn.text( 'Failed.' );
+                                $btn.text( 'Failed. Retry?' );
                             }
+                            // re-enable button
+                            $btn.prop( 'disabled', false );
                         } );
                     }, function () {
                         // failed
-                        $btn.text( 'Failed.' );
+                        $btn.text( 'Failed. Retry?' );
+                        // re-enable button
+                        $btn.prop( 'disabled', false );
                     } );
                 }, 200 );
             } );
@@ -483,7 +488,7 @@
 
 <div id="top">
     <h2 id="title_editor">姓名_学校_应聘X岗位_手机号</h2>
-    <button id="get_pdf" class="ui-button ui-corner-all">Get PDF</button>
+    <button id="get_pdf" class="ui-button ui-corner-all" autocomplete="off">Get PDF</button>
 </div>
 
 <!-- 拖动项目时显示的“轨道” -->

@@ -46,7 +46,7 @@
         静态文件，js、css、图片等。
         
         第三方的库，如果有多个文件按目录来组织，
-        比如 [webcv/static/jquery](../[webcv/static/jquery) 里放 `jquery*.js` 和 jQuery 插件。
+        比如 [webcv/static/jquery](../webcv/static/jquery) 里放 `jquery*.js` 和 jQuery 插件。
         
         第三方的库，如果只有一个文件，直接放在 [webcv/static](../webcv/static) 就行。
         

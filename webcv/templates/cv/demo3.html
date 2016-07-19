@@ -14,6 +14,7 @@
     <script src="{{ url_for('static', filename='jquery/jquery.api_post.js') }}"></script>
     <script src="{{ url_for('static', filename='jquery/jquery.selecttext.js') }}"></script>
     <script src="{{ url_for('static', filename='jquery-ui/jquery-ui.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='filename_sanitize.js') }}"></script>
     <script src="{{ url_for('static', filename='underscore-1.8.3.js') }}"></script>
 
     <link rel="stylesheet" href="{{ url_for('static', filename='jquery-ui/jquery-ui.css') }}">
@@ -56,6 +57,8 @@
     </style>
 
     <style>
+        /* TODO: reset browser builtin style. eg: table border */
+
         body {
             font-size: 0.35cm;
         }
@@ -419,8 +422,11 @@
                     if ( status === 'fail' ) {
                         done( status );
                     } else if ( status === 'success' ) {
+                        var filename = $( '#title_editor' ).text();
+                        // sanitize filename
+                        filename = window.encodeURIComponent( filename_sanitize( filename ) );
                         // XXX: this url is not auto-generated
-                        window.location.assign( '/cv/get_pdf/' + task_id + '/' + $( '#title_editor' ).text() + '.pdf' );
+                        window.location.assign( '/cv/get_pdf/' + task_id + '/' + filename + '.pdf' );
                         done( status );
                     } else if ( status === 'wait' ) {
                         window.setTimeout( function () {

@@ -29,9 +29,9 @@
     
         html 模板
         
-    -   [webcv/templates/cv](../webcv/templates/cv)
-    
-        简历模板
+        -   [webcv/templates/cv](../webcv/templates/cv)
+        
+            简历模板
         
     -   [webcv/views](../webcv/views)
     

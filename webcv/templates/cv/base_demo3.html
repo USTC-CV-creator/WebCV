@@ -242,8 +242,15 @@
             // setup ckeditor
 
             // 所有可以编辑的东西都要在 class 里加上 ed
-            $( '.ed' ).prop( 'contenteditable', true );
-            CKEDITOR.inlineAll();
+            $( '.ed' ).each( function () {
+                var el = $( this );
+                el.prop( 'contenteditable', true );
+                try {
+                    CKEDITOR.inline( el[ 0 ] );
+                } catch ( e ) {
+                    // pass
+                }
+            } );
 
             // setup sort handler and toolbar
 

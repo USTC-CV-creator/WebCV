@@ -31,7 +31,8 @@
         
         -   [webcv/templates/cv](../webcv/templates/cv)
         
-            简历模板，`base_*.html`，是模板的模板。
+            简历模板，`base_*.html`，是模板的模板。所有简历模板都是扩展 `base_*.html` 模板。
+            参考 [webcv/templates/cv/demo3.html](../webcv/templates/cv/demo3.html)
         
     -   [webcv/views](../webcv/views)
     

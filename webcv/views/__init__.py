@@ -95,7 +95,7 @@ def cv_get_pdf(task_id, filename):
                     return resp
 
             resp = send_file(result['pdf'], mimetype='application/pdf')
-            # BUG: cross browser support
+            # BUG: need cross browser support
             # ref: http://stackoverflow.com/a/6745788
             resp.headers['Content-Disposition'] = (
                 "attachment; filename*=UTF-8''"

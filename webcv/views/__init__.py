@@ -106,7 +106,7 @@ def cv_get_pdf(task_id, filename):
         abort(400)
 
 
-@app.route('/cv/<name>')
+@app.route('/cv/templates/<name>')
 def cv_page(name):
     if not re.match('^[a-zA-Z0-9_-]+$', name):
         abort(404)

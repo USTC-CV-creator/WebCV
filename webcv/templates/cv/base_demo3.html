@@ -2,12 +2,14 @@
 <html lang="en">
 <head>
     {# TODO: 提示简历内容高度超出页面 #}
+    {# TODO: resizable table #}
+    {# XXX: 可编辑的部分不能有 HTML 注释，否则 ckeditor 会傻掉。 #}
     <meta charset="UTF-8">
     <!-- force IE to use standard mode -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <!-- 主页地址，必须有这个东西，不然 PhantomJS 找不到页面里的资源 -->
+    <!-- 主页完整地址，必须要有这个东西，不然 PhantomJS 找不到页面里的资源 -->
     <base href="{{ url_for('index', _external=True) }}">
-    <title>Title</title>
+    <title>Resume Page</title>
 
     <script src="{{ url_for('static', filename='ckeditor/ckeditor.js') }}"></script>
     <script src="{{ url_for('static', filename='jquery/jquery-1.12.4.min.js') }}"></script>
@@ -21,9 +23,11 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='jquery-ui/jquery-ui.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='jquery-ui/jquery-ui.theme.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='font-awesome/css/font-awesome.css') }}">
+    <!-- makes browsers render all elements more consistently -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='normalize.css') }}">
 
     <style>
-        /* copied from cv.qiaobutang.com/ */
+        /* copied from cv.qiaobutang.com */
         .SimSun {
             font-family: SimSun, 宋体, 华文宋体;
         }
@@ -58,12 +62,21 @@
     </style>
 
     <style>
-        /* TODO: reset browser builtin style. eg: table border */
-
+        /* default styles */
         body {
             font-size: 0.35cm;
         }
 
+        a {
+            /* do not show underscore on anchors */
+            text-decoration: none;
+        }
+
+        td {
+            padding: 0;
+        }
+
+        /* for layouts and controls */
         #top {
             position: absolute;
             top: 0;

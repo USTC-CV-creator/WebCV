@@ -35,7 +35,7 @@ def pdf_gen(html):
         f.write(html)
 
     cmd = config['phantomjs']['cmd'] + [
-        './web_conv/web2pdf.js',
+        './scripts/web2pdf.js',
         'file:///' + tmp_html,
         tmp_pdf,
     ]
@@ -58,7 +58,7 @@ _png_gen_tasks = dict()
 @celery.task(name='png_gen')
 def png_gen(url, outfile):
     cmd = config['phantomjs']['cmd'] + [
-        './web_conv/web2png.js', url, outfile, '200',
+        './scripts/web2png.js', url, outfile, '200',
     ]
     retcode = subprocess.call(cmd)
     return {
@@ -156,14 +156,13 @@ def cv_thumbnail(name):
     else:
         need_update = True
 
+    if name in _png_gen_tasks and not _png_gen_tasks[name].ready():
+        need_update = False
+
     if need_update:
-        if name not in _png_gen_tasks:
-            url = url_for('cv_page', name=name, _external=True)
-            result = png_gen.apply_async((url, thumb_file))
-            _png_gen_tasks[name] = png_gen.AsyncResult(result.task_id)
-        else:
-            if _png_gen_tasks[name].ready():
-                del _png_gen_tasks[name]
+        url = url_for('cv_page', name=name, _external=True)
+        result = png_gen.apply_async((url, thumb_file))
+        _png_gen_tasks[name] = png_gen.AsyncResult(result.task_id)
 
     if os.path.exists(thumb_file):
         return send_file(thumb_file)

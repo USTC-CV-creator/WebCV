@@ -35,12 +35,12 @@
         }
 
         #cv-images > li {
-            border: 1px solid black;
+            border: 1mm solid black;
         }
 
         #cv-images > li:hover {
             cursor: pointer;
-            border: 1px solid red;
+            border: 1mm solid red;
         }
 
         #frame_area {
@@ -57,6 +57,32 @@
             height: 100%;
             margin: 0;
             border: none;
+        }
+
+        /* copied from http://stackoverflow.com/a/21457838 */
+        .dimmed {
+            position: relative;
+        }
+
+        .dimmed:after {
+            content: " ";
+            z-index: 10;
+            display: block;
+            position: absolute;
+            height: 100%;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        /* highlighted */
+        .dimmed:hover:after {
+            background: none;
+        }
+
+        .dimmed.clicked:after {
+            background: none;
         }
     </style>
 
@@ -148,7 +174,9 @@
 <nav id="left">
     <ul id="cv-images">
         {% for page in pages %}
-            <li data-src="{{ url_for('cv_page', name=page['name']) }}" data-name="{{ page['name'] }}">
+            <li data-src="{{ url_for('cv_page', name=page['name']) }}"
+                data-name="{{ page['name'] }}"
+                class="dimmed">
                 <div>{{ page['description'] }}</div>
                 {# TODO: make a placeholder background in case thumbnail not available #}
                 <img src="{{ url_for('cv_thumbnail', name=page['name']) }}">

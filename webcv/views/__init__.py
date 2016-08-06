@@ -66,7 +66,7 @@ _png_gen_tasks = dict()
 def png_gen(url, outfile):
     """celery task to generate thumbnail of cv page"""
     cmd = config['phantomjs']['cmd'] + [
-        './scripts/web2png.js', url, outfile, '200',
+        './scripts/web2png.js', url, outfile, '150',
     ]
     retcode = subprocess.call(cmd)
     return {

@@ -122,4 +122,5 @@ def cv_page(name):
 
 @app.route('/')
 def index():
-    return 'hello'
+    pages = [ page for page in config['cv_pages'].values() if page['enabled'] ]
+    return render_template('index.html', pages=pages)

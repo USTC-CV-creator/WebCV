@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <script src="{{ url_for('static', filename='jquery/jquery-1.12.4.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='jquery/jquery.balloon.es5.js') }}"></script>
+    <script src="{{ url_for('static', filename='jquery/jquery.api_post.js') }}"></script>
+    <script src="{{ url_for('static', filename='jquery/jquery.selecttext.js') }}"></script>
+    <script src="{{ url_for('static', filename='jquery-ui/jquery-ui.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='underscore-1.8.3.js') }}"></script>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='jquery-ui/jquery-ui.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='jquery-ui/jquery-ui.theme.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='font-awesome/css/font-awesome.css') }}">
+    <!-- makes browsers render all elements more consistently -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='normalize.css') }}">
+
+    <style>
+        body {
+            margin: 0;
+        }
+
+        #left {
+            position: absolute;;
+            height: 100%;
+            width: 200px;
+            background-color: lightyellow;
+            border-right: 1px solid gray;
+            overflow: auto;
+        }
+
+        #left ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        #left ul img {
+            width: 100%;
+        }
+
+        #cv-images > li {
+            border: 1px solid black;
+        }
+
+        #cv-images > li:hover {
+            cursor: pointer;
+            border: 1px solid red;
+        }
+
+        #frame_area {
+            position: absolute;
+            width: calc(4cm + 210mm + 2cm);    /* left_margin + a4_width + right_margin */
+            height: 100%;
+            margin: 0;
+            margin-left: 200px;
+            border: none;
+        }
+
+        .right-frame {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            border: none;
+        }
+    </style>
+
+    <script>
+        // inspired by QStackWidget
+        var StackWidget = function ( elem ) {
+            var self = this;
+            self.elem = elem;
+            self._map = {};
+        };
+
+        StackWidget.prototype.add = function ( name, el ) {
+            var self = this;
+            console.assert( !self._map.hasOwnProperty( name ), 'already added' );
+            el.css( 'display', 'none' );
+            self.elem.append( el );
+            self._map[ name ] = el;
+        };
+
+        StackWidget.prototype.has = function ( name ) {
+            var self = this;
+            return self._map.hasOwnProperty( name );
+        };
+
+        StackWidget.prototype.switch_to = function ( name, callback ) {
+            var self = this;
+            _( self._map ).each( function ( el, iter_name ) {
+                if ( name === iter_name ) {
+                    el.css( 'display', 'block' );
+                } else {
+                    el.css( 'display', 'none' );
+                }
+            } );
+        };
+
+        $( document ).ready( function () {
+            // create a new iframe
+            var create_iframe = function ( name, src ) {
+                var iframe = $( '<iframe>' ).attr( 'sandbox', [
+                    'allow-forms', 'allow-popups', 'allow-same-origin', 'allow-scripts'
+                ].join( ' ' ) );
+                iframe.attr( 'src', src );
+                iframe.attr( 'id', name );
+                iframe.addClass( 'right-frame' );
+                stack.add( name, iframe );
+                stack.switch_to( name );
+            };
+
+            var frame_area = $( '#frame_area' );
+            var stack = new StackWidget( frame_area );
+            var lis = $( '#cv-images' ).find( '> li' );
+
+            var cur_li = null;
+            lis.each( function () {
+                var self = $( this );
+                var src = self.attr( 'data-src' );
+                var name = self.attr( 'data-name' );
+
+                var on_click = function ( event ) {
+                    if ( cur_li ) {
+                        cur_li.removeClass( 'clicked' );
+                    }
+                    cur_li = self;
+                    cur_li.addClass( 'clicked' );
+
+                    if ( stack.has( name ) ) {
+                        stack.switch_to( name );
+                    } else {
+                        // create a new iframe
+                        create_iframe( name, src );
+                    }
+
+                    // prevent following anchor.
+                    event.preventDefault();
+                    return false;
+                };
+
+                self.click( on_click );
+            } );
+        } );
+    </script>
+</head>
+<body>
+
+<nav id="left">
+    <ul id="cv-images">
+        {% for page in pages %}
+            <li data-src="{{ url_for('cv_page', name=page['name']) }}" data-name="{{ page['name'] }}">
+                <div>{{ page['description'] }}</div>
+                <img src="https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2699528239,3038325192&fm=116&gp=0.jpg">
+            </li>
+        {% endfor %}
+    </ul>
+</nav>
+
+<div id="frame_area"></div>
+
+</body>
+</html>

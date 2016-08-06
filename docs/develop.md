@@ -6,19 +6,25 @@
 
     文档
 
--   [pdf_conv](../pdf_conv)
+-   [scripts](../scripts)
 
-    -   [pdf_conv/web2pdf.js](../pdf_conv/web2pdf.js)
+    存放脚本
 
-        html 转 pdf 程序
+    -   [scripts/web2pdf.js](../scripts/web2pdf.js)
+
+        html 转 pdf 脚本
+        
+    -   [scritps/web2png.js](../scripts/web2png.js)
+    
+        html 转 png 脚本，用来生成简历预览图。
 
 -   [prog](../prog)
 
     第三方工具，`phantomjs` 放在里面。
     
--   [pdf_tmp](../pdf_tmp)
+-   [tmp](../tmp)
 
-    转 pdf 时，临时存放 pdf，html。可以清空，注意不要删掉 `.git_keep_dir` ，
+    转 pdf 时，临时存放 pdf，html。生成的简历预览图也在这里。可以清空，注意不要删掉 `.git_keep_dir` ，
     否则 git 里没有这个文件夹。
     
 -   [webcv](../webcv)

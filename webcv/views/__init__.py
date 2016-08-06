@@ -55,6 +55,7 @@ def pdf_gen(html):
 
 _png_gen_tasks = dict()
 
+
 @celery.task(name='png_gen')
 def png_gen(url, outfile):
     cmd = config['phantomjs']['cmd'] + [

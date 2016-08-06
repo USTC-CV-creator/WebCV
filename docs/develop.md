@@ -1,5 +1,14 @@
 # 开发相关
 
+**Table of Contents**  *generated with [DocToc](http://doctoc.herokuapp.com/)*
+
+- [开发相关](#)
+	- [项目目录结构](#)
+	- [开发环境](#)
+	- [Deployment & Configurations](#)
+	- [如何加简历模板](#)
+	- [学习资料](#)
+
 ## 项目目录结构
 
 -   [docs](../docs)
@@ -100,6 +109,10 @@
 如何部署待调研。
 
 参考 <https://www.digitalocean.com/community/tutorials/how-to-serve-flask-applications-with-gunicorn-and-nginx-on-ubuntu-16-04>
+
+## 如何加简历模板
+
+TBA
 
 ## 学习资料
 

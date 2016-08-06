@@ -153,7 +153,7 @@
         {% for page in pages %}
             <li data-src="{{ url_for('cv_page', name=page['name']) }}" data-name="{{ page['name'] }}">
                 <div>{{ page['description'] }}</div>
-                <img src="https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2699528239,3038325192&fm=116&gp=0.jpg">
+                <img src="{{ url_for('cv_thumbnail', name=page['name']) }}">
             </li>
         {% endfor %}
     </ul>

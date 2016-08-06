@@ -183,8 +183,23 @@
     {# 简历 CSS #}
     {% block cv_style %}{% endblock %}
 
-    <!-- 控制A4页面，这个 CSS 要放在最后 -->
+    <!-- 控制A4页面，这两个 CSS 要放在最后 -->
     <link rel="stylesheet" href="{{ url_for('static', filename='webcv/a4.css') }}">
+    <!-- 打印时去掉 margin -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='webcv/a4_print.css') }}" media="print">
+
+    <script>
+        // 如果是 PhantomJS，强行添加 a4_print.css
+        if ( window.callPhantom || window._phantom ) {
+            var head = document.getElementsByTagName( 'head' )[ 0 ];
+            var link = document.createElement( 'link' );
+            link.rel = 'stylesheet';
+            link.type = 'text/css';
+            link.href = {{ url_for('static', filename='webcv/a4_print.css')|tojson }};
+            link.media = 'all';
+            head.appendChild( link );
+        }
+    </script>
 
     <!-- 点击添加按钮时，新加进去的东西 -->
     <!-- 这坨东西放在 script 标签里只是起一个保存的目的，注意 type 属性 -->

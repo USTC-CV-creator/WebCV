@@ -1,6 +1,6 @@
 from flask import (
-    render_template, request, abort, jsonify,
-    make_response, send_file, after_this_request
+    render_template, request, abort, jsonify, url_for,
+    make_response, send_file, after_this_request,
 )
 import urllib.parse
 import re
@@ -27,15 +27,15 @@ def api(f):
 
 @celery.task(name='pdf_gen')
 def pdf_gen(html):
-    fd, tmp_pdf = tempfile.mkstemp(suffix='.pdf', dir='./pdf_tmp/')
+    fd, tmp_pdf = tempfile.mkstemp(suffix='.pdf', dir='./tmp/')
     os.close(fd)
-    fd, tmp_html = tempfile.mkstemp(suffix='.html', dir='./pdf_tmp/')
+    fd, tmp_html = tempfile.mkstemp(suffix='.html', dir='./tmp/')
     os.close(fd)
     with open(tmp_html, 'wt', encoding='utf8') as f:
         f.write(html)
 
     cmd = config['phantomjs']['cmd'] + [
-        './pdf_conv/web2pdf.js',
+        './web_conv/web2pdf.js',
         'file:///' + tmp_html,
         tmp_pdf,
     ]
@@ -53,6 +53,19 @@ def pdf_gen(html):
             'status': 'fail',
         }
 
+_png_gen_tasks = dict()
+
+@celery.task(name='png_gen')
+def png_gen(url, outfile):
+    cmd = config['phantomjs']['cmd'] + [
+        './web_conv/web2png.js', url, outfile, '200',
+    ]
+    retcode = subprocess.call(cmd)
+    return {
+        'code': retcode,
+        'file': outfile,
+    }
+
 
 @app.route('/cv/request_pdf', methods=['POST'])
 @api
@@ -68,6 +81,7 @@ def cv_request_pdf():
 @app.route('/cv/task_status/<task_id>')
 @api
 def cv_task_status(task_id):
+    # TODO: check for existence of task_id
     res = pdf_gen.AsyncResult(task_id)
     if res.ready():
         ret = res.get()
@@ -106,17 +120,54 @@ def cv_get_pdf(task_id, filename):
         abort(400)
 
 
-@app.route('/cv/templates/<name>')
-def cv_page(name):
+def check_cv_name(name):
     if not re.match('^[a-zA-Z0-9_-]+$', name):
         abort(404)
     if name.startswith('base_'):
         abort(404)
 
+
+@app.route('/cv/templates/<name>')
+def cv_page(name):
+    check_cv_name(name)
     from jinja2.exceptions import TemplateNotFound
     try:
         return render_template('cv/{}.html'.format(name))
     except TemplateNotFound:
+        abort(404)
+
+
+@app.route('/cv/thumbnails/<name>.png')
+def cv_thumbnail(name):
+    check_cv_name(name)
+    thumb_file = './tmp/{}.png'.format(name)
+    thumb_file = os.path.abspath(thumb_file)    # send_file() must use absolute path
+    template_file = '{}/{}/cv/{}.html'.format(app.root_path, app.template_folder, name)
+
+    if not os.path.exists(template_file):
+        print(template_file)
+        abort(404)
+
+    if os.path.exists(thumb_file):
+        if os.path.getmtime(thumb_file) < os.path.getmtime(template_file):
+            need_update = True
+        else:
+            need_update = False
+    else:
+        need_update = True
+
+    if need_update:
+        if name not in _png_gen_tasks:
+            url = url_for('cv_page', name=name, _external=True)
+            result = png_gen.apply_async((url, thumb_file))
+            _png_gen_tasks[name] = png_gen.AsyncResult(result.task_id)
+        else:
+            if _png_gen_tasks[name].ready():
+                del _png_gen_tasks[name]
+
+    if os.path.exists(thumb_file):
+        return send_file(thumb_file)
+    else:
         abort(404)
 
 

@@ -137,6 +137,8 @@
 
 参考文档 <https://developer.mozilla.org/en-US/>
 
+参考时尽量少看 w3cschool，w3cschool 质量不如它。
+
 -   HTML/CSS
 
     <http://learn.shayhowe.com/html-css/>

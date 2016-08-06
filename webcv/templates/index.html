@@ -45,7 +45,7 @@
 
         #frame_area {
             position: absolute;
-            width: calc(4cm + 210mm + 2cm);    /* left_margin + a4_width + right_margin */
+            width: calc(4cm + 210mm + 2cm); /* left_margin + a4_width + right_margin */
             height: 100%;
             margin: 0;
             margin-left: 200px;
@@ -81,7 +81,7 @@
             return self._map.hasOwnProperty( name );
         };
 
-        StackWidget.prototype.switch_to = function ( name, callback ) {
+        StackWidget.prototype.switch_to = function ( name ) {
             var self = this;
             _( self._map ).each( function ( el, iter_name ) {
                 if ( name === iter_name ) {
@@ -105,6 +105,7 @@
                 stack.switch_to( name );
             };
 
+            // setup click event of cv thumbnails
             var frame_area = $( '#frame_area' );
             var stack = new StackWidget( frame_area );
             var lis = $( '#cv-images' ).find( '> li' );
@@ -136,6 +137,9 @@
 
                 self.click( on_click );
             } );
+
+            // select first cv
+            lis.first().click();
         } );
     </script>
 </head>

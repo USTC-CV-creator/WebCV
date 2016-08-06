@@ -59,7 +59,6 @@ base_flask_config = {
 }
 app.config.update(base_flask_config)
 
-
 # default configs, do not modify it when deploying since it was tracked by git.
 DEFALUT_CONFIG_FILE = 'config_default.json'
 # modify this instead

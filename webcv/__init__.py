@@ -7,6 +7,7 @@ from flask import Flask
 
 
 class Dict(OrderedDict):
+    """An OrderedDict that capable of 'nested update'"""
     def nested_update(self, dct):
         for k, v in dct.items():
             if k not in self:
@@ -27,6 +28,7 @@ class Dict(OrderedDict):
 
 
 class JsonConfig(Dict):
+    """A dict like object used to holding the configurations of this project"""
     def __init__(self, *args, **kwargs):
         self.file = None
         super().__init__(*args, **kwargs)
@@ -58,7 +60,9 @@ base_flask_config = {
 app.config.update(base_flask_config)
 
 
+# default configs, do not modify it when deploying since it was tracked by git.
 DEFALUT_CONFIG_FILE = 'config_default.json'
+# modify this instead
 CONFIG_FILE = 'config.json'
 # create config file if not exists
 if not os.path.exists(CONFIG_FILE):

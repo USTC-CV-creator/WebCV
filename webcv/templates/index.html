@@ -30,6 +30,7 @@
 
         #header #welcome {
             font-size: 30px;
+            font-family: SimHei;
         }
 
         #header #icons {
@@ -67,6 +68,10 @@
         #cv_thumbs > li:hover {
             cursor: pointer;
             border: 1mm solid red;
+        }
+
+        #cv_thumbs .description {
+            padding-left: 5px;
         }
 
         #right > * {
@@ -208,7 +213,7 @@
             <li data-src="{{ url_for('cv_page', name=page['name']) }}"
                 data-name="{{ page['name'] }}"
                 class="dimmed">
-                <div>{{ page['description'] }}</div>
+                <div class="description">{{ page['description'] }}</div>
                 {# TODO: make a placeholder background in case thumbnail not available #}
                 <img src="{{ url_for('cv_thumbnail', name=page['name']) }}">
             </li>

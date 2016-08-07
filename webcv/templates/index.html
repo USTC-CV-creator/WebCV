@@ -9,6 +9,7 @@
     <script src="{{ url_for('static', filename='underscore-1.8.3.js') }}"></script>
 
     <!-- makes browsers render all elements more consistently -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='font-awesome/css/font-awesome.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='normalize.css') }}">
 
     <style>
@@ -27,8 +28,17 @@
             display: inline-block;
         }
 
-        #welcome {
+        #header #welcome {
             font-size: 30px;
+        }
+
+        #header #icons {
+            float: right;
+            font-size: 40px;
+        }
+
+        #header #icons * {
+            color: white;
         }
 
         #left {
@@ -210,6 +220,11 @@
     <div id="header">
         <div id="welcome">欢迎使用简历生成服务</div>
         <div id="description">简历中的内容可自由编辑。猛戳顶端的按钮输出 PDF。</div>
+        <div id="icons">
+            <a href="https://github.com/USTC-CV-creator/WebCV/">
+                <i class="fa fa-github" aria-hidden="true"></i>
+            </a>
+        </div>
     </div>
     <div id="frame_area"></div>
 </div>

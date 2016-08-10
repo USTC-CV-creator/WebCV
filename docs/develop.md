@@ -88,7 +88,7 @@
 
 4.  启动 celery worker：
 
-    `celery -A webcv.celery worker`
+    `celery -A webcv.celery worker --loglevel=info`
 
 5.  运行
 

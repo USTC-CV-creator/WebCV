@@ -88,11 +88,11 @@
 
 4.  启动 celery worker：
 
-    `celery -A webcv.celery worker --loglevel=info`
+    `celery worker --app=webcv:celery --loglevel=info`
 
 5.  运行
 
-    `python3 run_dev_server.py`
+    `python3 run_dev_server.py --bind=127.0.0.1:5000`
     
     打开 http://127.0.0.1:5000/
 

@@ -8,6 +8,7 @@ import tempfile
 import os
 import subprocess
 import functools
+import pathlib
 
 from .. import app, celery, config
 
@@ -40,7 +41,7 @@ def pdf_gen(html):
 
     cmd = config['phantomjs']['cmd'] + [
         './scripts/web2pdf.js',
-        'file:///' + tmp_html,
+        pathlib.Path(os.path.abspath(tmp_html)).as_uri(),
         tmp_pdf,
     ]
     retcode = subprocess.call(cmd)

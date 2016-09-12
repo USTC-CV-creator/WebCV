@@ -10,6 +10,8 @@ def main():
     )
     cmd_args = parser.parse_args()
     ip, port = cmd_args.bind.split(':')
+    if not ip:
+        ip = '127.0.0.1'
     port = int(port)
 
     args = {

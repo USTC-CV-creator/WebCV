@@ -1,0 +1,46 @@
+/* html 设成A4大小 */
+html {
+    width: 210mm;
+    height: calc(297mm - 1mm);
+    margin: 0;
+}
+
+/* 黑色框框是A4纸的边界 */
+html {
+    /*border: 1px solid black;*/
+    -webkit-box-shadow: 0 0 5mm rgba(0, 0, 0, 0.5);
+    -moz-box-shadow: 0 0 5mm rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0 5mm rgba(0, 0, 0, 0.5);
+}
+
+/* 下面这个用于调试 */
+/* 红色框框是简历内容，即A4纸去掉页边距 */
+body {
+    /*border: 1px solid red;*/
+}
+
+/* 多余的 margin 用于显示简历以外的东西 */
+/* print 时要重设为 0 */
+html {
+    margin-left: 4cm;
+    margin-top: 2.5cm;
+    margin-bottom: 1cm;
+}
+
+body {
+    /* 简历页边距在这里设置 */
+    margin: 2cm 1.5cm 2cm 1.5cm;
+}
+
+/* the padding and border of that element no longer increase its width */
+/* ref http://learnlayout.com/box-sizing.html */
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+@page {
+    size: A4;
+    margin: 0;
+}

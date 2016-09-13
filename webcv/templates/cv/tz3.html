@@ -1,0 +1,427 @@
+{% extends 'cv/base_demo3.html' %}
+
+{% block cv_style %}
+    <style>
+        body {
+            font-size: 4mm;
+        }
+
+        table {
+            border-collapse: collapse;
+        }
+
+        td {
+            border: 1pt solid black;
+        }
+
+        ul {
+            padding-left: 1em;
+        }
+
+        .cell-center {
+            text-align: center;
+        }
+
+        .cell-left-padding {
+            padding-left: 2mm;
+        }
+
+        .cv-head {
+            font-weight: bold;
+            border-bottom: 1pt solid black;
+            height: 1.3cm;
+        }
+
+        .cv-head .name {
+            font-size: 1cm;
+            max-width: 50%;
+            text-align: center;
+        }
+
+        .cv-head > table {
+            width: 100%;
+        }
+
+        .cv-head td {
+            border: 1pt solid black;
+        }
+
+        .cv-contact table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .cv-contact td {
+            width: 33.33%;
+            border: 1pt solid black;
+        }
+
+        .cv-contact td:nth-child(1) {
+            text-align: left;
+        }
+
+        .cv-contact td:nth-child(2) {
+            text-align: center;
+        }
+
+        .cv-contact td:nth-child(3) {
+            text-align: right;
+        }
+
+        .cv-position {
+            padding-left: 1em;
+        }
+
+        .cv-intro-skill {
+            width: 100%;
+        }
+
+        .cv-intro-skill td {
+            border: none;
+        }
+
+        .cv-intro-skill td:nth-child(1) {
+            width: 33%;
+        }
+
+        .cv-intro-skill td:nth-child(2) {
+            width: 67%;
+        }
+
+        .cv-intro-skill tr:nth-child(2) > td {
+            border: 1pt solid black;
+            border-top: none;
+        }
+
+        .spacing5mm {
+            min-height: 5mm;
+            width: 100%;
+        }
+
+        .cv-sect-head {
+            font-size: 0.5cm;
+            width: 100%;
+            border-bottom: 1pt solid black;
+        }
+
+        .cv-sect-wrap .cv-sect-head div {
+            border-left: 3mm solid darkred;
+        }
+
+        .cv-sect-wrap:nth-child(4n) .cv-sect-head div {
+            border-left-color: darkolivegreen;
+        }
+
+        .cv-sect-wrap:nth-child(4n + 1) .cv-sect-head div {
+            border-left-color: black;
+        }
+
+        .cv-sect-wrap:nth-child(4n + 2) .cv-sect-head div {
+            border-left-color: darkblue;
+        }
+
+        .cv-sect-wrap:nth-child(4n + 3) .cv-sect-head div {
+            border-left-color: orange;
+        }
+
+        .cv-date-table table {
+            width: 100%;
+        }
+
+        .cv-date-table .date {
+            width: 3.4cm;
+            text-align: center;
+            vertical-align: top;
+        }
+
+        .cv-date-table .content .title {
+            font-size: 0.45cm;
+            color: darkgreen;
+        }
+
+        .cv-date-table .content .subtitle {
+            float: right;
+            color: black;
+        }
+
+        .cv-date-table .content li {
+            margin-top: 1mm;
+            margin-bottom: 1mm;
+        }
+
+        .cv-date-table .subtable td {
+            border: none;
+            border-top: 1pt solid black;
+        }
+
+        .cv-date-table .subtable td:nth-child(1) {
+            width: 75%;
+        }
+
+        .cv-date-table .subtable td:nth-child(2) {
+            width: 25%;
+            border-left: 1pt solid black;
+        }
+    </style>
+{% endblock %}
+
+{% block inner_sect_template %}
+    <div class="cv-date-table ed" contenteditable="true">
+        <table>
+            <tr>
+                <td class="date">2008.09-2012.06</td>
+                <td class="content">
+                    <div class="title SimHei">
+                        简历在线编辑网站
+                        （<a href="https://github.com/USTC-CV-creator">github.com/USTC-CV-creator</a>）
+                        <div class="subtitle">某软件工程实践</div>
+                    </div>
+                    <table class="subtable">
+                        <tr>
+                            <td>
+                                <ul>
+                                    <li>
+                                        团队项目，在Github上与同学协作。
+                                    </li>
+                                    <li>
+                                        负责技术选型，文档编写，并初步编码实现。
+                                    </li>
+                                </ul>
+                                功能：在线简历编辑，并生成PDF。<br>
+                                前端：所见即所得编辑界面。<br>
+                                后端：使用Celery任务队列处理后台任务。
+                            </td>
+                            <td class="cell-center">
+                                <b>Python</b>/Flask<br>
+                                <b>JavaScript</b>/jQuery
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </div>
+{% endblock %}
+
+{% block resume %}
+    <div class="cv-head ed">
+        <table>
+            <tr>
+                <td rowspan="2" class="name SimHei">李四</td>
+                <td>性别：男</td>
+                <td colspan="3">出生年月：1995.1</td>
+            </tr>
+            <tr>
+                <td>中国科学技术大学</td>
+                <td>2013级（2017毕业）</td>
+                <td>计算机专业</td>
+                <td>本科</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="cv-contact ed">
+        <table>
+            <tr>
+                <td>电话：15256055555</td>
+                <td>邮件：asdf@mail.ustc.edu.cn</td>
+                <td>
+                    Github：
+                    <a href="https://github.com/USTC-CV-creator">
+                        USTC-CV-creator
+                    </a>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="spacing5mm ed"></div>
+
+    <div class="cv-sect-wrap">
+        <div class="cv-sect-head ed">
+            <div class="SimHei">应聘岗位</div>
+        </div>
+
+        <div class="cv-position ed">研发工程师</div>
+    </div>
+
+    <div class="spacing5mm ed"></div>
+
+    <div class="cv-sect-wrap ed">
+        <table class="cv-intro-skill">
+            <tr>
+                <td>
+                    <div class="cv-sect-head ed">
+                        <div class="SimHei">自我评价</div>
+                    </div>
+                </td>
+                <td>
+                    <div class="cv-sect-head ed">
+                        <div class="SimHei">技能</div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="cell-left-padding">
+                    <ul>
+                        <li>热爱编程。</li>
+                        <li>学习能力强。</li>
+                        <li>能动手。</li>
+                        <li>上手快。</li>
+                    </ul>
+                </td>
+                <td class="cell-left-padding">
+                    <ul>
+                        <li>熟悉 <b>C</b>，<b>Python</b>。了解常用数据结构和算法。</li>
+                        <li>掌握 <b>HTML</b>，<b>CSS</b>，<b>JS</b> 等 web 技术。有 web 框架使用经历。</li>
+                        <li>了解 <b>Linux</b> 环境（ shell，Makefile 等）。</li>
+                        <li>擅长使用 Google、Stack Overflow、Github 寻找答案。</li>
+                        <li>英语4级，能快速阅读技术文档。</li>
+                    </ul>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="spacing5mm ed"></div>
+
+    <div class="cv-sect-wrap">
+        <div class="cv-sect-head ed">
+            <div class="SimHei">开发经历</div>
+        </div>
+
+        <div class="cv-date-table ed">
+            <table>
+                <tr>
+                    <td class="date">2008.09-2012.06</td>
+                    <td class="content">
+                        <div class="title SimHei">
+                            简历在线编辑网站
+                            （<a href="https://github.com/USTC-CV-creator">github.com/USTC-CV-creator</a>）
+                            <div class="subtitle">某软件工程实践</div>
+                        </div>
+                        <table class="subtable">
+                            <tr>
+                                <td class="cell-left-padding">
+                                    <ul>
+                                        <li>
+                                            团队项目，在Github上与同学协作。
+                                        </li>
+                                        <li>
+                                            负责技术选型，文档编写，并初步编码实现。
+                                        </li>
+                                    </ul>
+                                    功能：在线简历编辑，并生成PDF。<br>
+                                    前端：所见即所得编辑界面。<br>
+                                    后端：使用Celery任务队列处理后台任务。
+                                </td>
+                                <td class="cell-center">
+                                    <b>Python</b>/Flask<br>
+                                    <b>JavaScript</b>/jQuery
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="cv-date-table ed">
+            <table>
+                <tr>
+                    <td class="date">2008.09-2012.06</td>
+                    <td class="content">
+                        <div class="title SimHei">
+                            北京维度动力信息技术有限公司
+                            <div class="subtitle">手机游戏系统设计开发</div>
+                        </div>
+                        <table class="subtable">
+                            <tr>
+                                <td class="cell-left-padding">
+                                    <ul>
+                                        <li>
+                                            阅读大量英文材料，整理网站内容
+                                        </li>
+                                        <li>
+                                            研究ibm、vault、微软等公司英文网站结构，策划公司网站
+                                        </li>
+                                    </ul>
+                                    这里可以胡扯几句
+                                </td>
+                                <td class="cell-center">写技术、关键字</td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="cv-date-table ed">
+            <table>
+                <tr>
+                    <td class="date">2008.09-2012.06</td>
+                    <td class="content">
+                        <div class="title SimHei">
+                            北京维度动力信息技术有限公司
+                            <div class="subtitle">手机游戏系统设计开发</div>
+                        </div>
+                        <table class="subtable">
+                            <tr>
+                                <td class="cell-left-padding">
+                                    <ul>
+                                        <li>
+                                            阅读大量英文材料，整理网站内容
+                                        </li>
+                                        <li>
+                                            研究ibm、vault、微软等公司英文网站结构，策划公司网站
+                                        </li>
+                                    </ul>
+                                    这里可以胡扯几句
+                                </td>
+                                <td class="cell-center">-</td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="spacing5mm ed"></div>
+    </div>
+
+    <div class="cv-sect-wrap">
+        <div class="cv-sect-head ed">
+            <div class="SimHei">校园经历</div>
+        </div>
+
+        <div class="cv-date-table ed">
+            <table>
+                <tr>
+                    <td class="date">2008.09-2012.06</td>
+                    <td class="content">
+                        <div class="text">
+                            校学生会团委书记，负责团工作的任务分配协调验收等，沟通、交流能力优秀
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="spacing5mm ed"></div>
+    </div>
+
+
+    <div class="cv-sect-wrap">
+        <div class="cv-sect-head ed">
+            <div class="SimHei">其他经历/技能</div>
+        </div>
+
+        <div class="ed cell-left-padding">
+            <ul>
+                <li>闲暇时了解专业以外的知识（编程，互联网等）。</li>
+                <li>关注互联网，技术等方面的博客（月光博客，阮一峰博客等）。</li>
+                <li>PyQt GUI开发。</li>
+                <li>写过爬虫。</li>
+            </ul>
+        </div>
+        <div class="spacing5mm ed"></div>
+    </div>
+{% endblock %}

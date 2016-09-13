@@ -1,0 +1,3 @@
+docs/* linguist-documentation
+webcv/static/* linguist-vendored
+webcv/static/webcv/* linguist-vendored=false

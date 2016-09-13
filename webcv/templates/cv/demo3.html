@@ -1,0 +1,287 @@
+{% extends 'cv/base_demo3.html' %}
+
+{% block cv_style %}
+    <style>
+        .cv-head {
+            font-weight: bold;
+            border-bottom: 1pt solid black;
+            height: 1.3cm;
+        }
+
+        .cv-head .name {
+            font-size: 1cm;
+            max-width: 50%;
+        }
+
+        .cv-head .position {
+            float: right;
+            /*position: relative;*/
+            margin-top: 0.8cm;
+        }
+
+        .cv-contact table {
+            width: 100%;
+        }
+
+        .cv-contact td {
+            width: 33.33%;
+            text-align: right;
+        }
+
+        .spacing5mm {
+            min-height: 5mm;
+            width: 100%;
+        }
+
+        .cv-sect-head {
+            font-size: 0.5cm;
+            width: 100%;
+            border-bottom: 1pt solid black;
+        }
+
+        .cv-sect-head div {
+            background-color: black;
+            color: white;
+            padding-left: 2mm;
+            width: 3cm;
+        }
+
+        .cv-date-table table {
+            width: 100%;
+        }
+
+        .cv-date-table .date {
+            width: 3cm;
+            vertical-align: top;
+        }
+
+        .cv-date-table .content .title {
+            font-size: 0.45cm;
+            color: darkgreen;
+        }
+
+        .cv-date-table .content .subtitle {
+            float: right;
+            color: black;
+        }
+
+        .cv-date-table .content .text li {
+            margin-top: 1mm;
+            margin-bottom: 1mm;
+        }
+    </style>
+{% endblock %}
+
+{% block inner_sect_template %}
+    <div class="cv-date-table ed" contenteditable="true">
+        <table>
+            <tr>
+                <td class="date">2008.09-2012.06</td>
+                <td class="content">
+                    <div class="title SimHei">
+                        主标题
+                        <div class="subtitle">副标题</div>
+                    </div>
+                    <div class="text">
+                        <ul>
+                            <li>
+                                item0
+                            </li>
+                            <li>
+                                item1
+                            </li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+{% endblock %}
+
+{% block resume %}
+    <div class="cv-head ed">
+        <span class="name SimHei">张三</span>
+        <div class="position">申请岗位：软件工程师</div>
+    </div>
+
+    <div class="cv-contact ed">
+        <table>
+            <tr>
+                <td></td>
+                <td>(+86) 1380-0138-000</td>
+                <td>service@qiaobutang.com</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="spacing5mm ed"></div>
+
+    <div class="cv-sect-wrap">
+        <div class="cv-sect-head ed">
+            <div class="SimHei">教育背景</div>
+        </div>
+
+        <div class="cv-date-table ed">
+            <table>
+                <tr>
+                    <td class="date">2008.09-2012.06</td>
+                    <td class="content">
+                        <div class="title SimHei">
+                            乔布大学
+                            <div class="subtitle">计算机科学与技术 本科</div>
+                        </div>
+                        <div class="text">
+                            <ul>
+                                <li>
+                                    <strong>毕业论文</strong>
+                                    《局域网文件共享及检索系统》
+                                </li>
+                                <li>
+                                    <strong>热爱软件编程</strong>
+                                    目前研究课题为网络游戏服务器开发，2011年初破解某网络游戏外挂加密算法，自写软件解除其使用期限
+                                </li>
+                                <li>
+                                    <strong>毕业论文</strong>
+                                    《局域网文件共享及检索系统》
+                                </li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="spacing5mm ed"></div>
+    </div>
+
+    <div class="cv-sect-wrap">
+        <div class="cv-sect-head ed">
+            <div class="SimHei">开发经历</div>
+        </div>
+
+        <div class="cv-date-table ed">
+            <table>
+                <tr>
+                    <td class="date">2008.09-2012.06</td>
+                    <td class="content">
+                        <div class="title SimHei">
+                            北京乔布国际教育咨询有限公司
+                            <div class="subtitle">主要技术负责人</div>
+                        </div>
+                        <div class="text">
+                            <ul>
+                                <li>
+                                    阅读大量英文材料，整理网站内容
+                                </li>
+                                <li>
+                                    研究ibm、vault、微软等公司英文网站结构，策划公司网站
+                                </li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="cv-date-table ed">
+            <table>
+                <tr>
+                    <td class="date">2008.09-2012.06</td>
+                    <td class="content">
+                        <div class="title SimHei">
+                            北京维度动力信息技术有限公司
+                            <div class="subtitle">手机游戏系统设计开发</div>
+                        </div>
+                        <div class="text">
+                            <ul>
+                                <li>
+                                    阅读大量英文材料，整理网站内容
+                                </li>
+                                <li>
+                                    研究ibm、vault、微软等公司英文网站结构，策划公司网站
+                                </li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="cv-date-table ed">
+            <table>
+                <tr>
+                    <td class="date">2008.09-2012.06</td>
+                    <td class="content">
+                        <div class="title SimHei">
+                            北京维度动力信息技术有限公司
+                            <div class="subtitle">手机游戏系统设计开发</div>
+                        </div>
+                        <div class="text">
+                            <ul>
+                                <li>
+                                    阅读大量英文材料，整理网站内容
+                                </li>
+                                <li>
+                                    研究ibm、vault、微软等公司英文网站结构，策划公司网站
+                                </li>
+                                <li>
+                                    研究ibm、vault、微软等公司英文网站结构，策划公司网站
+                                </li>
+                                <li>
+                                    研究ibm、vault、微软等公司英文网站结构，策划公司网站
+                                </li>
+                                <li>
+                                    研究ibm、vault、微软等公司英文网站结构，策划公司网站
+                                </li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="spacing5mm ed"></div>
+    </div>
+
+
+    <div class="cv-sect-wrap">
+        <div class="cv-sect-head ed">
+            <div class="SimHei">校园经历</div>
+        </div>
+
+        <div class="cv-date-table ed">
+            <table>
+                <tr>
+                    <td class="date">2008.09-2012.06</td>
+                    <td class="content">
+                        <div class="text">
+                            校学生会团委书记，负责团工作的任务分配协调验收等，沟通、交流能力优秀
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="spacing5mm ed"></div>
+    </div>
+
+
+    <div class="cv-sect-wrap">
+        <div class="cv-sect-head ed">
+            <div class="SimHei">论文发表</div>
+        </div>
+
+        <div class="cv-date-table ed">
+            <table>
+                <tr>
+                    <td class="date"></td>
+                    <td class="content">
+                        <div class="text">
+                            <ul>
+                                <li>发表论文《基于WEB的多媒体素材管理库的开发与应用》</li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="spacing5mm ed"></div>
+    </div>
+{% endblock %}

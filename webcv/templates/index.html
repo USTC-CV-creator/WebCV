@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {# TODO: float scrollbar: https://github.com/Amphiluke/floating-scroll #}
+    <meta charset="UTF-8">
+    <title>WebCV - A WYSIWYG online resume editor</title>
+
+    <script src="{{ url_for('static', filename='jquery/jquery-1.12.4.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='underscore-1.8.3.js') }}"></script>
+
+    <!-- makes browsers render all elements more consistently -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='font-awesome/css/font-awesome.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='normalize.css') }}">
+
+    <style>
+        body {
+            margin: 0;
+        }
+
+        #header {
+            height: 50px;
+            background-color: black;
+            color: white;
+            padding-left: 10px;
+        }
+
+        #header > * {
+            display: inline-block;
+        }
+
+        #header #welcome {
+            font-size: 30px;
+            font-family: SimHei;
+        }
+
+        #header #icons {
+            float: right;
+            font-size: 40px;
+        }
+
+        #header #icons * {
+            color: white;
+        }
+
+        #left {
+            position: absolute;;
+            height: 100%;
+            width: 150px;
+            background-color: lightyellow;
+            border-right: 1px solid gray;
+            overflow: auto;
+        }
+
+        #left ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        #left ul img {
+            width: 100%;
+        }
+
+        #cv_thumbs > li {
+            border: 1mm solid black;
+        }
+
+        #cv_thumbs > li:hover {
+            cursor: pointer;
+            border: 1mm solid red;
+        }
+
+        #cv_thumbs .description {
+            padding-left: 5px;
+        }
+
+        #right > * {
+            width: calc(4cm + 210mm + 2cm); /* left_margin + a4_width + right_margin */
+            min-width: calc(100% - 150px);
+            margin: 0;
+            margin-left: 150px;
+        }
+
+        #frame_area {
+            position: absolute;
+            height: calc(100% - 50px);
+            border: none;
+            top: 50px;
+        }
+
+        .right-frame {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            border: none;
+        }
+
+        /* copied from http://stackoverflow.com/a/21457838 */
+        .dimmed {
+            position: relative;
+        }
+
+        .dimmed:after {
+            content: " ";
+            z-index: 10;
+            display: block;
+            position: absolute;
+            height: 100%;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        /* highlighted */
+        .dimmed:hover:after {
+            background: none;
+        }
+
+        .dimmed.clicked:after {
+            background: none;
+        }
+    </style>
+
+    <script>
+        // inspired by QStackWidget
+        var StackWidget = function ( elem ) {
+            var self = this;
+            self.elem = elem;
+            self._map = {};
+        };
+
+        StackWidget.prototype.add = function ( name, el ) {
+            var self = this;
+            console.assert( !self._map.hasOwnProperty( name ), 'already added' );
+            el.css( 'display', 'none' );
+            self.elem.append( el );
+            self._map[ name ] = el;
+        };
+
+        StackWidget.prototype.has = function ( name ) {
+            var self = this;
+            return self._map.hasOwnProperty( name );
+        };
+
+        StackWidget.prototype.switch_to = function ( name ) {
+            var self = this;
+            _( self._map ).each( function ( el, iter_name ) {
+                if ( name === iter_name ) {
+                    el.css( 'display', 'block' );
+                } else {
+                    el.css( 'display', 'none' );
+                }
+            } );
+        };
+
+        $( document ).ready( function () {
+            // create a new iframe
+            var create_iframe = function ( name, src ) {
+                var iframe = $( '<iframe>' ).attr( 'sandbox', [
+                    'allow-forms', 'allow-popups', 'allow-same-origin', 'allow-scripts'
+                ].join( ' ' ) );
+                iframe.attr( 'src', src );
+                iframe.attr( 'id', name );
+                iframe.addClass( 'right-frame' );
+                stack.add( name, iframe );
+                stack.switch_to( name );
+            };
+
+            // setup click event of cv thumbnails
+            var frame_area = $( '#frame_area' );
+            var stack = new StackWidget( frame_area );
+            var lis = $( '#cv_thumbs' ).find( '> li' );
+
+            var cur_li = null;
+            lis.each( function () {
+                var self = $( this );
+                var src = self.attr( 'data-src' );
+                var name = self.attr( 'data-name' );
+
+                var on_click = function ( event ) {
+                    if ( cur_li ) {
+                        cur_li.removeClass( 'clicked' );
+                    }
+                    cur_li = self;
+                    cur_li.addClass( 'clicked' );
+
+                    if ( stack.has( name ) ) {
+                        stack.switch_to( name );
+                    } else {
+                        // create a new iframe
+                        create_iframe( name, src );
+                    }
+
+                    // prevent following anchor.
+                    event.preventDefault();
+                    return false;
+                };
+
+                self.click( on_click );
+            } );
+
+            // select first cv
+            lis.first().click();
+        } );
+    </script>
+</head>
+<body>
+
+<nav id="left">
+    <ul id="cv_thumbs">
+        {% for page in pages %}
+            <li data-src="{{ url_for('cv_page', name=page['name']) }}"
+                data-name="{{ page['name'] }}"
+                class="dimmed">
+                <div class="description">{{ page['description'] }}</div>
+                {# TODO: make a placeholder background in case thumbnail not available #}
+                <img src="{{ url_for('cv_thumbnail', name=page['name']) }}">
+            </li>
+        {% endfor %}
+    </ul>
+</nav>
+
+<div id="right">
+    <div id="header">
+        <div id="welcome">欢迎使用简历生成服务</div>
+        <div id="description">简历中的内容可自由编辑。猛戳顶端的按钮输出 PDF。</div>
+        <div id="icons">
+            <a href="https://github.com/USTC-CV-creator/WebCV/">
+                <i class="fa fa-github" aria-hidden="true"></i>
+            </a>
+        </div>
+    </div>
+    <div id="frame_area"></div>
+</div>
+
+</body>
+</html>

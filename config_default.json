@@ -1,0 +1,24 @@
+{
+    "flask": {
+        "CELERY_BROKER_URL": "redis://localhost:6379",
+        "CELERY_RESULT_BACKEND": "redis://localhost:6379"
+    },
+    "phantomjs": {
+        "cmd": [
+            "./prog/phantomjs",
+            "--disk-cache=yes"
+        ]
+    },
+    "cv_pages": {
+        "demo3": {
+            "name": "demo3",
+            "description": "first demo",
+            "enabled": true
+        },
+        "tz3": {
+            "name": "tz3",
+            "description": "second demo",
+            "enabled": true
+        }
+    }
+}
